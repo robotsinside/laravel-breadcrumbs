@@ -1,0 +1,54 @@
+{
+    "name": "robotsinside/laravel-breadcrumbs",
+    "description": "Simple breadcrumb implementation for Laravel.",
+    "keywords": [
+        "robotsinside",
+        "breadcrumbs"
+    ],
+    "homepage": "https://github.com/robotsinside/laravel-breadcrumbs",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Rob Francken",
+            "email": "robertfrancken@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "RobotsInside\\Breadcrumbs\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "RobotsInside\\Breadcrumbs\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RobotsInside\\Breadcrumbs\\BreadcrumbsServiceProvider"
+            ],
+            "aliases": {
+                "Breadcrumbs": "RobotsInside\\Breadcrumbs\\BreadcrumbsFacade"
+            }
+        }
+    }
+}
