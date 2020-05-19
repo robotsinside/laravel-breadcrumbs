@@ -1,18 +1,17 @@
-# Laravel Breadrumbs
+# Laravel Breadcrumbs
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/robotsinside/breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/breadcrumbs)
-[![Build Status](https://img.shields.io/travis/robotsinside/breadcrumbs/master.svg?style=flat-square)](https://travis-ci.org/robotsinside/breadcrumbs)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/robotsinside/laravel-breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/laravel-breadcrumbs)
 [![Quality Score](https://img.shields.io/scrutinizer/g/robotsinside/breadcrumbs.svg?style=flat-square)](https://scrutinizer-ci.com/g/robotsinside/breadcrumbs)
 [![Total Downloads](https://img.shields.io/packagist/dt/robotsinside/breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/breadcrumbs)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+A simple breadcrumbs implementation for Laravel.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require robotsinside/breadcrumbs
+composer require robotsinside/laravel-breadcrumbs
 ```
 
 ## Usage
