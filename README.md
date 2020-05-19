@@ -1,4 +1,4 @@
-# Very short description of the package
+# Laravel Breadrumbs
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/robotsinside/breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/breadcrumbs)
 [![Build Status](https://img.shields.io/travis/robotsinside/breadcrumbs/master.svg?style=flat-square)](https://travis-ci.org/robotsinside/breadcrumbs)
