@@ -45,8 +45,8 @@ class BreadcrumbsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'breadcrumbs');
 
         // Register the main class to use with the facade
-        $this->app->singleton('breadcrumbs', function () {
-            return new Breadcrumbs;
+        $this->app->bind('breadcrumbs', function ($app) {
+            return new Breadcrumbs($app->make('request'));
         });
     }
 }

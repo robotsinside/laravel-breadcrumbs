@@ -26,11 +26,11 @@ class Breadcrumbs
      *
      * @return array
      */
-    public function generate($config)
+    public function generate($custom = null)
     {
-        if (isset($config['custom'])) {
-            $class = __NAMESPACE__ . '\\Segments\\' . ucfirst(Str::camel($config['custom']));
-            $this->segments = (new $class($this->segmentCollection(), $config))->getSegments();
+        if (isset($custom)) {
+            $class = config('breadcrumbs.segments.namespace') . $custom;
+            $this->segments = (new $class($this->segmentCollection()))->getSegments();
         } else {
             $this->setSegments();
         }

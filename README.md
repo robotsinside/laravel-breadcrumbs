@@ -4,7 +4,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/robotsinside/breadcrumbs.svg?style=flat-square)](https://scrutinizer-ci.com/g/robotsinside/breadcrumbs)
 [![Total Downloads](https://img.shields.io/packagist/dt/robotsinside/breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/breadcrumbs)
 
-A simple breadcrumbs implementation for Laravel.
+A simple breadcrumbs implementation for Laravel allowing class based segment customisation.
 
 ## Installation
 
