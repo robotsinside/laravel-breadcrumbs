@@ -3,13 +3,27 @@
 namespace RobotsInside\Breadcrumbs;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class Breadcrumbs
 {
+    /**
+     * @var \Illuminate\Http\Request
+     */
     protected $request;
-    
+
+    /**
+     * The collection of breadcrumb segments.
+     *
+     * @var Collection
+     */
     protected $segments;
+
+    /**
+     * The customizer class
+     *
+     * @var CustomSegments
+     */
+    protected $customizer;
 
     /**
      * Breadcrumbs constructor.
@@ -22,20 +36,50 @@ class Breadcrumbs
     }
 
     /**
-     * Generate the breadcrumbs.
+     * Customize the breadcrumbs.
      *
      * @return array
      */
-    public function generate($custom = null)
+    public function customize($customizer = null)
     {
-        if (isset($custom)) {
-            $class = config('breadcrumbs.segments.namespace') . $custom;
-            $this->segments = (new $class($this->segmentCollection()))->getSegments();
-        } else {
-            $this->setSegments();
+        $this->customizer = $this->instance($customizer);
+
+        $this->customizer->setSegments($this->segments());
+
+        $this->customizer->customize();
+
+        $this->segments = $this->customizer->getSegments();
+
+        return $this;
+    }
+
+    /**
+     * Render the breadcrumbs.
+     *
+     * @return void
+     */
+    public function render()
+    {
+        if($this->customizer) {
+            return $this->segments->toArray();
         }
+        
+        $this->setSegments();
 
         return $this->segments->toArray();
+    }
+
+    /**
+     * Instanciate the customizer.
+     *
+     * @param string $className
+     * @return void
+     */
+    private function instance($className)
+    {
+        $class = config('breadcrumbs.segments.namespace') . $className;
+
+        return new $class;
     }
 
     /**
@@ -55,7 +99,7 @@ class Breadcrumbs
      *
      * @return Collection
      */
-    private function segmentCollection()
+    private function segments()
     {
         return collect($this->request->segments())->map(function ($segment) {
             return new Segment($this->request, $segment);
