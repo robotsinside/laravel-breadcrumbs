@@ -19,11 +19,11 @@ class Breadcrumbs
     protected $segments;
 
     /**
-     * The customizer class
+     * The mutator class
      *
      * @var CustomSegments
      */
-    protected $customizer;
+    protected $mutator;
 
     /**
      * Breadcrumbs constructor.
@@ -40,15 +40,15 @@ class Breadcrumbs
      *
      * @return array
      */
-    public function customize($customizer = null)
+    public function mutate($mutator = null)
     {
-        $this->customizer = $this->instance($customizer);
+        $this->mutator = $this->instance($mutator);
 
-        $this->customizer->setSegments($this->segments());
+        $this->mutator->setSegments($this->segments());
 
-        $this->customizer->customize();
+        $this->mutator->mutate();
 
-        $this->segments = $this->customizer->getSegments();
+        $this->segments = $this->mutator->getSegments();
 
         return $this;
     }
@@ -60,24 +60,28 @@ class Breadcrumbs
      */
     public function render()
     {
-        if($this->customizer) {
+        if($this->mutator) {
             return $this->segments->toArray();
         }
         
         $this->setSegments();
 
+        dd('vendor.breadcrumbs.'.config('breadcrumbs.template').'.blade.php');
+
+        view('vendor.breadcrumbs.'.config('breadcrumbs.template').'.blade.php');
+
         return $this->segments->toArray();
     }
 
     /**
-     * Instanciate the customizer.
+     * Instanciate the mutator.
      *
      * @param string $className
      * @return void
      */
     private function instance($className)
     {
-        $class = config('breadcrumbs.segments.namespace') . $className;
+        $class = config('breadcrumbs.mutators.namespace') . $className;
 
         return new $class;
     }

@@ -48,7 +48,7 @@
                 "RobotsInside\\Breadcrumbs\\BreadcrumbsServiceProvider"
             ],
             "aliases": {
-                "Breadcrumbs": "RobotsInside\\Breadcrumbs\\BreadcrumbsFacade"
+                "Breadcrumbs": "RobotsInside\\Breadcrumbs\\Facades\\Breadcrumbs"
             }
         }
     }

@@ -29,7 +29,7 @@ class Segment
 
     public function name()
     {
-        return str_replace('-', ' ', Str::title($this->segment));
+        return str_replace('-', ' ', Str::title($this->segment()));
     }
 
     protected function segments()
@@ -42,7 +42,7 @@ class Segment
         return collect($this->request->route()->parameters())->where('slug', $this->segment)->first();
     }
 
-    public function title()
+    public function label()
     {
         return $this->model() ? $this->model()->breadcrumbTitle() : $this->name();
     }
