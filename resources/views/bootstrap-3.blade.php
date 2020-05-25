@@ -1,10 +1,7 @@
-<nav>
-    <ul class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Home</a>
-        </li>
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
         @foreach($segments as $segment)
-            <li class="breadcrumb-item">
+            <li class="{{ $loop->count == $loop->iteration ? 'active' : '' }}">
                 @if($loop->count == $loop->iteration)
                     {{ $segment->label() }}
                 @else
@@ -14,5 +11,5 @@
                 @endif
             </li>
         @endforeach
-    </ul>
-</nav>
+    <li><a href="#">Library</a></li>
+</ol>
