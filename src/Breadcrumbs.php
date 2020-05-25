@@ -61,16 +61,17 @@ class Breadcrumbs
     public function render()
     {
         if($this->mutator) {
-            return $this->segments->toArray();
+            return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
         }
         
         $this->setSegments();
 
-        dd('vendor.breadcrumbs.'.config('breadcrumbs.template').'.blade.php');
+        return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
+    }
 
-        view('vendor.breadcrumbs.'.config('breadcrumbs.template').'.blade.php');
-
-        return $this->segments->toArray();
+    private function viewPath()
+    {
+        return sprintf('vendor.breadcrumbs.%s', config('breadcrumbs.template'));
     }
 
     /**
