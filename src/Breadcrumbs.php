@@ -36,7 +36,7 @@ class Breadcrumbs
     }
 
     /**
-     * Customize the breadcrumbs.
+     * Mutate the breadcrumbs.
      *
      * @return array
      */
@@ -54,9 +54,9 @@ class Breadcrumbs
     }
 
     /**
-     * Render the breadcrumbs.
+     * Render the breadcrumbs. IF a mutator exists, the segments will be overridden.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function render()
     {
@@ -69,6 +69,11 @@ class Breadcrumbs
         return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
     }
 
+    /**
+     * The path to the breadcrumb markup template.
+     *
+     * @return string
+     */
     private function viewPath()
     {
         return sprintf('vendor.breadcrumbs.%s', config('breadcrumbs.template'));

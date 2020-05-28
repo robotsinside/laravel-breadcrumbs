@@ -2,8 +2,6 @@
 
 namespace RobotsInside\Breadcrumbs;
 
-use Illuminate\Database\Eloquent\Model;
-
 abstract class Label
 {
     /**
