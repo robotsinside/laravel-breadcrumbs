@@ -32,7 +32,10 @@ class Breadcrumbs
      */
     public function __construct(Request $request)
     {
+        // dd($request->route()->uri());
         $this->request = $request;
+
+        $this->segments = collect(explode('/', $this->request->route()->uri()));
     }
 
     /**
@@ -44,7 +47,7 @@ class Breadcrumbs
     {
         $this->mutator = $this->instance($mutator);
 
-        $this->mutator->setSegments($this->segments());
+        $this->mutator->setSegments($this->segments);
 
         $this->mutator->mutate();
 
@@ -65,6 +68,8 @@ class Breadcrumbs
         }
         
         $this->setSegments();
+
+        dd($this->segments);
 
         return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
     }
@@ -87,9 +92,9 @@ class Breadcrumbs
      */
     private function instance($className)
     {
-        $class = config('breadcrumbs.mutators.namespace') . $className;
+        $mutator = config('breadcrumbs.mutators.namespace') . $className;
 
-        return new $class;
+        return new $mutator;
     }
 
     /**
@@ -99,7 +104,7 @@ class Breadcrumbs
      */
     protected function setSegments()
     {
-        $this->segments = collect($this->request->segments())->map(function ($segment) {
+        $this->segments = $this->segments->map(function ($segment) {
             return new Segment($this->request, $segment);
         });
     }

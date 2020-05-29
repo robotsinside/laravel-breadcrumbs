@@ -3,6 +3,7 @@
 namespace RobotsInside\Breadcrumbs;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 
@@ -12,6 +13,13 @@ class Segment
      * @var \Illuminate\Http\Request
      */
     protected $request;
+
+    /**
+     * The collection of segments
+     *
+     * @var Collection
+     */
+    protected $segments;
 
     /**
      * The current segment
@@ -31,7 +39,9 @@ class Segment
     {
         $this->request = $request;
 
-        $this->segment = $segment;
+        $this->segments = $this->segments = collect(explode('/', $this->request->route()->uri()));
+
+        $this->segment = Str::contains($segment, ['{', '}']) ? trim($segment, '\{\}') : $segment;   
     }
 
     /**
@@ -51,7 +61,7 @@ class Segment
      */
     protected function segments()
     {
-        return $this->request->segments();
+        return $this->segments->toArray();
     }
 
     /**
@@ -61,9 +71,7 @@ class Segment
      */
     public function model()
     {    
-        $model = collect($this->request->route()->parameters())->where('id', $this->segment)->first();
-
-        return $model ? $model : false;
+        return collect($this->request->route()->parameters())->get($this->segment) ?? false;
     }
 
     /**
