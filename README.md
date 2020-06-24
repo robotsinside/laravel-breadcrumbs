@@ -51,7 +51,7 @@ For example (usign Bootstrap 4) if you url is `http://example.com/about-us/team`
         <ul class="breadcrumb">
             <li class="breadcrumb-item"><a href="http://example.com">Home</a></li>
             <li class="breadcrumb-item"><a href="http://example.com/about-us">About us</a></li>
-            <li class="breadcrumb-item"><a href="http://example.com/about-us/team">Team</li>
+            <li class="breadcrumb-item">Team</li>
         </ul>
     </nav>
 </div>
