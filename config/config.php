@@ -18,8 +18,8 @@ return [
     ],
 
     /**
-     * If you want to overide an injected route models' label, for  you can provide a mapping here which
-     * maps models to classes which  custom logic.
+     * If you want to overide an injected route models' label, you can provide a mapping here which
+     * maps models to classes which allows custom logic to generate the breadcrumb label.
      */
     'labels' => [
         App\Post::class => App\Breadcrumbs\Labels\PostBreadcrumbLabel::class,

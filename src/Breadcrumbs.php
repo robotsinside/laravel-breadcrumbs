@@ -19,7 +19,7 @@ class Breadcrumbs
     protected $segments;
 
     /**
-     * The mutator class
+     * The mutator class.
      *
      * @var CustomSegments
      */
@@ -32,10 +32,7 @@ class Breadcrumbs
      */
     public function __construct(Request $request)
     {
-        // dd($request->route()->uri());
         $this->request = $request;
-
-        $this->segments = collect(explode('/', $this->request->route()->uri()));
     }
 
     /**
@@ -68,8 +65,6 @@ class Breadcrumbs
         }
         
         $this->setSegments();
-
-        dd($this->segments);
 
         return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
     }
@@ -104,19 +99,7 @@ class Breadcrumbs
      */
     protected function setSegments()
     {
-        $this->segments = $this->segments->map(function ($segment) {
-            return new Segment($this->request, $segment);
-        });
-    }
-
-    /**
-     * The entire set of segments;
-     *
-     * @return Collection
-     */
-    private function segments()
-    {
-        return collect($this->request->segments())->map(function ($segment) {
+        $this->segments = collect($this->request->segments())->map(function ($segment) {
             return new Segment($this->request, $segment);
         });
     }

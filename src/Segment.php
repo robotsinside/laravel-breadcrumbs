@@ -15,11 +15,25 @@ class Segment
     protected $request;
 
     /**
-     * The collection of segments
+     * The collection of URL segments.
      *
      * @var Collection
      */
-    protected $segments;
+    protected $urlSegments;
+
+    /**
+     * The collection of URI segments.
+     *
+     * @var Collection
+     */
+    protected $uriSegments;
+
+    /**
+     * The collection of URL => URI segments.
+     *
+     * @var Collection
+     */
+    protected $mergedSegments;
 
     /**
      * The current segment
@@ -29,19 +43,44 @@ class Segment
     protected $segment;
 
     /**
-     * The overridden segment path.
+     * The current url.
      *
      * @var string
      */
-    protected $path;
+    protected $url;
+
+    /**
+     * The route's model binding.
+     *
+     * @var Model
+     */
+    protected $model;
 
     public function __construct(Request $request, $segment)
     {
         $this->request = $request;
 
-        $this->segments = $this->segments = collect(explode('/', $this->request->route()->uri()));
+        $this->segment = $segment;
 
-        $this->segment = Str::contains($segment, ['{', '}']) ? trim($segment, '\{\}') : $segment;   
+        $this->urlSegments = collect($this->request->segments());
+
+        $this->uriSegments = collect(explode('/', $this->request->route()->uri()));
+
+        $this->mergedSegments = $this->urlSegments->mapWithkeys(function ($item, $key) {
+            return [$item => $this->uriSegments->toArray()[$key]];
+        });
+
+        $this->setRouteModel();
+    }
+
+    private function setRouteModel()
+    {
+        $uriSegment = $this->mergedSegments->get($this->segment);
+
+        if(Str::containsAll($uriSegment, ['{', '}'])) {
+            // it's model
+            $this->model = $this->request->route(str_replace(['{', '}'], '', $uriSegment));
+        }        
     }
 
     /**
@@ -55,13 +94,13 @@ class Segment
     }
 
     /**
-     * The request segments.
+     * The request URL segments.
      *
      * @return array
      */
     protected function segments()
     {
-        return $this->segments->toArray();
+        return $this->urlSegments->toArray();
     }
 
     /**
@@ -71,7 +110,7 @@ class Segment
      */
     public function model()
     {    
-        return collect($this->request->route()->parameters())->get($this->segment) ?? false;
+        return $this->model;
     }
 
     /**
@@ -131,41 +170,37 @@ class Segment
      */
     public function url()
     {
-        if($this->path) {
-            return $this->path;
-        }
-        
-        return url(implode('/', $this->current()));
+        return $this->url ? $this->url : url($this->current()->implode('/'));
     }
 
     /**
      * Pluck the current segment.
      *
-     * @return array
+     * @return Collection
      */
     public function current()
     {
-        return array_slice($this->segments(), 0, $this->position() + 1);
+        return $this->urlSegments->take($this->position());
     }
 
     /**
-     * Determine the position for the current segment
+     * Determine the position for the current segment adjusted for taking.
      *
      * @return int
      */
     public function position()
     {
-        return array_search($this->segment, $this->segments());
+        return $this->urlSegments->search($this->segment) + 1;
     }
 
     /**
      * Override the path for the current segment.
      *
-     * @param string $path
+     * @param string $url
      * @return void
      */
-    public function setPath($path)
+    public function setUrl($url)
     {
-        $this->path = $path;
+        $this->url = $url;
     }
 }

@@ -27,7 +27,9 @@ abstract class Mutator
 	}
 
 	/**
-	 * Add a segment;
+	 * Add a segment
+	 * 
+	 * @TODO
 	 *
 	 * @param Segment $segment
 	 * @param string|null $after
