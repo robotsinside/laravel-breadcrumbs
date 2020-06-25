@@ -21,7 +21,7 @@ class Breadcrumbs
     /**
      * The mutator class.
      *
-     * @var CustomSegments
+     * @var \RobotsInside\Breadcrumbs\Mutator
      */
     protected $mutator;
 
@@ -54,7 +54,7 @@ class Breadcrumbs
     }
 
     /**
-     * Render the breadcrumbs. IF a mutator exists, the segments will be overridden.
+     * Render the breadcrumbs. If a mutator exists, render the mutated segments.
      *
      * @return \Illuminate\View\View
      */
@@ -100,7 +100,7 @@ class Breadcrumbs
     protected function setSegments()
     {
         $this->segments = collect($this->request->segments())->map(function ($segment) {
-            return new Segment($this->request, $segment);
+            return new Segment($segment);
         });
     }
 }

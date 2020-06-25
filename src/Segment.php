@@ -56,12 +56,24 @@ class Segment
      */
     protected $model;
 
-    public function __construct(Request $request, $segment)
+    public function __construct($segment, $url = null)
     {
-        $this->request = $request;
+        $this->request = request();
+
+        $this->url = $url;
 
         $this->segment = $segment;
 
+        $this->init();
+    }
+
+    /**
+     * Initialise the required data.
+     *
+     * @return void
+     */
+    private function init()
+    {
         $this->urlSegments = collect($this->request->segments());
 
         $this->uriSegments = collect(explode('/', $this->request->route()->uri()));
@@ -73,6 +85,11 @@ class Segment
         $this->setRouteModel();
     }
 
+    /**
+     * Locate and set the route model.
+     *
+     * @return void
+     */
     private function setRouteModel()
     {
         $uriSegment = $this->mergedSegments->get($this->segment);

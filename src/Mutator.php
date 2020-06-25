@@ -5,7 +5,26 @@ namespace RobotsInside\Breadcrumbs;
 abstract class Mutator
 {
 	/**
-	 * The mutation hook.
+	 * The HTTP request.
+	 *
+	 * @var \Illuminate\Http\Request
+	 */
+	private $request;
+
+	/**
+	 * The URL segments.
+	 *
+	 * @var \Illuminate\Support\Collection
+	 */
+	private $segments;
+
+	public function construct()
+	{
+		$this->request = request();
+	}
+
+	/**
+	 * Delegates to the users' mutator.
 	 *
 	 * @return void
 	 */
@@ -34,12 +53,17 @@ abstract class Mutator
 	 * @TODO
 	 *
 	 * @param Segment $segment
-	 * @param string|null $after
+	 * @param string $after
+	 * @param string $url
 	 * @return void
 	 */
-	protected function add($segment, $after = null)
+	protected function add($segment, $after, $url)
 	{
+		$result = $this->segments->search(function ($s) use ($after) {
+			return $s->segment() == $after;
+		});
 
+		$this->segments->splice($result, 0, [new Segment($segment, $url)]);
 	}
 
 	/**
