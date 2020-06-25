@@ -5,13 +5,6 @@ namespace RobotsInside\Breadcrumbs;
 abstract class Mutator
 {
 	/**
-	 * The HTTP request.
-	 *
-	 * @var \Illuminate\Http\Request
-	 */
-	private $request;
-
-	/**
 	 * The URL segments.
 	 *
 	 * @var \Illuminate\Support\Collection
@@ -33,15 +26,16 @@ abstract class Mutator
 	/**
 	 * Remove segments.
 	 *
-	 * @param array $segments
+	 * @param array $removals
 	 * @return void
 	 */
-	protected function remove(array $segments)
+	protected function remove(array $removals)
 	{
-		foreach($segments as $remove) {
-			$this->segments->each(function ($segment) use ($remove) {
+		// dd($this->segments);
+		foreach($removals as $remove) {
+			$this->segments->each(function ($segment, $key) use ($remove) {
 				if($segment->segment() === $remove) {
-					$this->segments->forget($this->segments->search($remove));
+					$this->segments->forget($key);
 				}
 			});
 		}
@@ -50,8 +44,6 @@ abstract class Mutator
 	/**
 	 * Add a segment
 	 * 
-	 * @TODO
-	 *
 	 * @param Segment $segment
 	 * @param string $after
 	 * @param string $url

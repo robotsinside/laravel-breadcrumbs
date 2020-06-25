@@ -38,12 +38,15 @@ class Breadcrumbs
     /**
      * Mutate the breadcrumbs.
      *
+     * @param string $mutator
      * @return array
      */
-    public function mutate($mutator = null)
+    public function mutate($mutator)
     {
         $this->mutator = $this->instance($mutator);
 
+        $this->setSegments();
+        
         $this->mutator->setSegments($this->segments);
 
         $this->mutator->mutate();
@@ -102,5 +105,17 @@ class Breadcrumbs
         $this->segments = collect($this->request->segments())->map(function ($segment) {
             return new Segment($segment);
         });
+
+        $this->setRootNode();
+    }
+
+    /**
+     * The breadcrumbs root node.
+     *
+     * @return void
+     */
+    private function setRootNode()
+    {
+        $this->segments->splice(0, 0, [new Segment(config('breadcrumbs.root.label'), config('breadcrumbs.root.url'))]);
     }
 }
