@@ -46,7 +46,7 @@ class Breadcrumbs
         $this->mutator = $this->instance($mutator);
 
         $this->setSegments();
-        
+
         $this->mutator->setSegments($this->segments);
 
         $this->mutator->mutate();
@@ -79,6 +79,10 @@ class Breadcrumbs
      */
     private function viewPath()
     {
+        if(config()->has('breadcrumbs.view_path') && config('breadcrumbs.view_path') !== '') {
+            return config('breadcrumbs.view_path');
+        }
+
         return sprintf('vendor.breadcrumbs.%s', config('breadcrumbs.template'));
     }
 
