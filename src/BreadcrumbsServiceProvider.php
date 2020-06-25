@@ -21,7 +21,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('breadcrumber.php'),
+                __DIR__.'/../config/config.php' => config_path('breadcrumbs.php'),
             ], 'config');
 
             // Publishing the views.
