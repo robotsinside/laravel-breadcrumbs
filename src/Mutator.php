@@ -20,9 +20,11 @@ abstract class Mutator
 	protected function remove(array $segments)
 	{
 		foreach($segments as $remove) {
-			$this->segments->forget($this->segments->search(function ($segment) use ($remove) {
-				return $segment->segment() == $remove;
-			}));
+			$this->segments->each(function ($segment) use ($remove) {
+				if($segment->segment() === $remove) {
+					$this->segments->forget($this->segments->search($remove));
+				}
+			});
 		}
 	}
 
@@ -38,24 +40,6 @@ abstract class Mutator
 	protected function add($segment, $after = null)
 	{
 
-	}
-
-	/**
-	 * Set a path on the specified model segment.
-	 *
-	 * @param Model $model
-	 * @return void
-	 */
-	protected function setPath($model)
-	{
-		$segment = $this->segments->filter(function ($segment) use ($model) {
-			if($segment->segment() == $segment->request()->route($model)->getRouteKey()) {
-				return $segment;
-			}
-		})->first();
-
-		// When excluding models (using the exclude settings key) the segment is null.
-		!$segment ?: $segment->setPath($segment->request()->route($model)->breadcrumbPath());
 	}
 
 	/**
