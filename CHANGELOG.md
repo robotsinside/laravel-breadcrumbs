@@ -1,7 +1,6 @@
 # Changelog
 
-All notable changes to `breadcrumbs` will be documented in this file
+All notable changes to `laravel-breadcrumbs` will be documented in this file.
 
-## 1.0.0 - 201X-XX-XX
-
-- initial release
+## 0.0.1 - 2020-06-25
+- Initial release
