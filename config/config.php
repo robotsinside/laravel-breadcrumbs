@@ -18,7 +18,7 @@ return [
      * own template. This template should be provided in your views directory under the path
      * resources/views/breadcrumbs/yourBladeTemplate.blade.php
      *
-     * Supported values: 'bootstrap-4', 'bootstrap-3', 'bulma', 'foundation, 'custom'
+     * Supported values: 'bootstrap-4', 'bootstrap-3', 'bulma', 'foundation, 'your-template'
      */
     'template' => 'bootstrap-4',
 
