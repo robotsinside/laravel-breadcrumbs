@@ -1,10 +1,10 @@
 # Laravel Breadcrumbs
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/robotsinside/laravel-breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/laravel-breadcrumbs)
-[![Quality Score](https://img.shields.io/scrutinizer/g/robotsinside/breadcrumbs.svg?style=flat-square)](https://scrutinizer-ci.com/g/robotsinside/breadcrumbs)
 [![Total Downloads](https://img.shields.io/packagist/dt/robotsinside/breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/breadcrumbs)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A simple breadcrumbs implementation for Laravel 7+ with flexiblbe class based segment customisation.
+A simple breadcrumbs implementation for Laravel 7+ with flexible class based segment customisation.
 
 ## Installation
 
@@ -43,7 +43,7 @@ Once installed you can start rendering breadcrumbs immediately.
 </div>
 ```
 
-For example (using the Bootstrap 4 template) if you url is `http://example.test/about-us/team` the output will be :
+For example (using the Bootstrap 4 template) if you url is `http://example.test/about-us/team` the output will be:
 
 ```html
 <div class="container">
@@ -127,7 +127,18 @@ class AdminMutator extends Mutator
 If the URL is `http://example.test/admin/posts/my-post`, breacrumbs will render:
 
 ```html
-
+<nav aria-label="You are here:" role="navigation">
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="http://laravel.test">
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            My Post
+        </li>
+    </ul>
+</nav>
 ```
 
 ### Adding nodes
@@ -153,7 +164,7 @@ class AddPostIndexMutator extends Mutator
 ```
 
 ```blade
-{{ Breadcrumbs::mutate('AddPostMutator')->render() }}
+{{ Breadcrumbs::mutate('AddPostIndexMutator')->render() }}
 ```
 
 If the URL is `http://example.test/my-post`, breadcrumbs will render:
