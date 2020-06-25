@@ -130,7 +130,7 @@ If the URL is `http://example.test/admin/posts/my-post`, breacrumbs will render:
 <nav aria-label="You are here:" role="navigation">
     <ul class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="http://laravel.test">
+            <a href="http://example.test">
                 Home
             </a>
         </li>
@@ -176,7 +176,7 @@ If the URL is `http://example.test/my-post`, breadcrumbs will render:
             <a href="http://example.test">Home</a>
         </li>
         <li class="breadcrumb-item">
-            <a href="http://laravel.test/posts">All Posts</a>
+            <a href="http://example.test/posts">All Posts</a>
         </li>
         <li class="breadcrumb-item">
             Vero ipsa consequatur veniam eaque aut nam.
