@@ -141,7 +141,7 @@ You will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes
 
 Let's say you have an admin area in your app, in that case you probably want to remove the `admin` segment from your breadcrumbs.
 
-You can achieve this by defining a mutator and calling the `remove` method in the `mutate` method. The `remove` method expect an array, so you can remove multiple nodes if needed.
+You can achieve this by defining a mutator and calling the `remove` method in the `mutate` method. The `remove` method expects an array, so you can remove multiple nodes if needed.
 
 ```php
 <?php
@@ -171,6 +171,11 @@ If the URL is `http://example.test/admin/posts/my-post`, breadcrumbs will render
         <li class="breadcrumb-item">
             <a href="http://example.test">
                 Home
+            </a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="http://example.test/posts">
+                Posts
             </a>
         </li>
         <li class="breadcrumb-item">
