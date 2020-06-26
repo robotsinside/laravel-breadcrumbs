@@ -79,7 +79,7 @@ The following example includes an injected model.
 | GET|HEAD  | posts/{post}                  | posts.show            | App\App\Posts\Controllers\PostController@show                 |
 ```
 
-By default the package will look for the `title` and `name` properties on the `Post` model. If this does not suit your use-case, you can define a BreadcrumbLabel class as shown below. This class will 
+By default the package will look for the `title` and `name` properties on the `Post` model. If this does not suit your use-case, you can define a `BreadcrumbLabel` class as shown below. This class contains a `model` property which is resolved via the route model binding.
 
 ```php
 <?php
@@ -131,7 +131,7 @@ If you want to define any breadcrumb mutator classes, you need to provide the na
 
 By default, the package will look for `name` and `title` properties on injected route models. This is really just a convenience since many of my own models contain those properties. But you're not limited to these, you can easily provide custom logic to define your model labels.
 
-You will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes. See reasons why I chose this setup in "Package removal".
+You will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes in `config/breadcrumbs.php`. See reasons why I chose this setup in "Package removal".
 
 ```php
 'labels' => [
@@ -143,7 +143,7 @@ You will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes
 
 Let's say you have an admin area in your app, in that case you probably want to remove the `admin` segment from your breadcrumbs.
 
-You can achieve this by defining a mutator and calling the `remove` method in the `mutate` method, for example:
+You can achieve this by defining a mutator and calling the `remove` method in the `mutate` method. The `remove` method expect an array, so you can remove multiple nodes if needed.
 
 ```php
 <?php
@@ -165,7 +165,7 @@ class AdminMutator extends Mutator
 {{ Breadcrumbs::mutate('AdminMutator')->render() }}
 ```
 
-If the URL is `http://example.test/admin/posts/my-post`, breacrumbs will render:
+If the URL is `http://example.test/admin/posts/my-post`, breadcrumbs will render:
 
 ```html
 <nav aria-label="You are here:" role="navigation">
@@ -220,7 +220,7 @@ If the URL is `http://example.test/my-post`, breadcrumbs will render:
             <a href="http://example.test/posts">All Posts</a>
         </li>
         <li class="breadcrumb-item">
-            Vero ipsa consequatur veniam eaque aut nam.
+            My Post
         </li>
     </ul>
 </nav>
