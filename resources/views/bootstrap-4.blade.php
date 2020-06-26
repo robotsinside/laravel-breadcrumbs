@@ -2,11 +2,15 @@
     <ul class="breadcrumb">
         @foreach($segments as $segment)
             <li class="breadcrumb-item">
-                @if($loop->count == $loop->iteration)
+                @if($loop->last)
                     {{ $segment->label() }}
                 @else
                     <a href="{{ $segment->url() }}">
-                        {{ $segment->label() }}
+                        @if($segment->isRoot()) 
+                            {!! $segment->label() !!}
+                        @else
+                            {{ $segment->label() }}
+                        @endif
                     </a>
                 @endif
             </li>
