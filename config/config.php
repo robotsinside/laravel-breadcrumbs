@@ -2,38 +2,45 @@
 
 return [
     /**
-     * Define the breadcrumbs root node here. The icon supports raw HTML, so you are free choose any 
+     * Define the breadcrumbs root node here. The icon supports raw HTML, so you are free choose any
      * icon markup as long as your app knows how to render it. The icon can be removed by setting
-     * it 'false'. The "You are here:" text can be disabled by setting if false too
+     * the style to 'label'. To display only the icon, use 'icon' otherwise use 'icon_label'.
+     * 
+     * Supported style: 'label', 'icon', 'icon_label'
+     * Supported icon: false, '<tag></tag>'
      */
     'root' => [
         'label' => 'Home',
         'url' => env('APP_URL'),
-        'icon' => false,
-        'you_are_here' => false,
+        'style' => 'label',
+        // 'icon' => '<tag></tag>',
     ],
 
     /**
-     * The template to use for rendering out breadcrumbs. If you want, you can even define your
-     * own template. This template should be provided in your views directory under the path
-     * resources/views/breadcrumbs/yourBladeTemplate.blade.php
-     *
-     * Supported values: 'bootstrap-4', 'bootstrap-3', 'bulma', 'foundation, 'your-template'
+     * The template used for rendering out breadcrumbs. If you want, you can even define your
+     * own template. If you choose 'custom', you'll need to set the path where your custom
+     * template's markup is defined. You can use the provided templates to get started.
+     * 
+     * Supported style values: 'bootstrap-4', 'bootstrap-3', 'bulma', 'foundation, 'custom'
      */
-    'template' => 'bootstrap-4',
+    'template' => [
+        'style' => 'bootstrap-4',
+        // 'path' => 'breadcrumbs.custom' // Will look in: 'views.breadcrumbs.custom'
+    ],
 
     /**
      * The namespace from where to load breadcrumb mutators.
      */
     'mutators' => [
-        'namespace' => 'App\\Breadcrumbs\\Mutators\\',
+        'namespace' => 'App\\Breadcrumbs\\Mutators\\'
     ],
 
     /**
      * If you want to overide an injected route models' label, you can provide a mapping here which
-     * maps models to classes which allows custom logic to generate the breadcrumb label.
+     * maps models to classes which define the custom breadcrumb label logic. Each label class
+     * receives the inject model and can be accessed at $this->model in your class file.
      */
     'labels' => [
-        App\Post::class => App\Breadcrumbs\Labels\PostBreadcrumbLabel::class,
+        // App\Post::class => App\Breadcrumbs\Labels\PostBreadcrumbLabel::class,
     ],
 ];
