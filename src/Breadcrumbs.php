@@ -79,11 +79,11 @@ class Breadcrumbs
      */
     private function viewPath()
     {
-        if(config()->has('breadcrumbs.view_path') && config('breadcrumbs.view_path') !== '') {
-            return config('breadcrumbs.view_path');
+        if(config()->has('breadcrumbs.template.style') && config('breadcrumbs.template.style') == 'custom') {
+            return config('breadcrumbs.template.path');
         }
 
-        return sprintf('vendor.breadcrumbs.%s', config('breadcrumbs.template'));
+        return sprintf('vendor.breadcrumbs.%s', config('breadcrumbs.template.style'));
     }
 
     /**
@@ -120,6 +120,25 @@ class Breadcrumbs
      */
     private function setRootNode()
     {
-        $this->segments->splice(0, 0, [new Segment(config('breadcrumbs.root.label'), config('breadcrumbs.root.url'))]);
+        $root = new Segment($this->rootLabel(), config('breadcrumbs.root.url'));
+        $root->setRoot();
+
+        $this->segments->splice(0, 0, [$root]);
+    }
+
+    /**
+     * The root node label option.
+     *
+     * @return void
+     */
+    private function rootLabel()
+    {
+        if(config('breadcrumbs.root.style') == 'label') {
+            return config('breadcrumbs.root.label');
+        } elseif(config('breadcrumbs.root.style') == 'icon') {
+            return config('breadcrumbs.root.icon');
+        } elseif(config('breadcrumbs.root.style') == 'icon_label') {
+            return sprintf('%s %s', config('breadcrumbs.root.icon'), config('breadcrumbs.root.label'));
+        }
     }
 }

@@ -49,6 +49,13 @@ class Segment
     protected $url;
 
     /**
+     * Determine whether it's the root node.
+     *
+     * @var string
+     */
+    protected $root = false;
+
+    /**
      * The route's model binding.
      *
      * @var Model
@@ -82,6 +89,26 @@ class Segment
         });
 
         $this->setRouteModel();
+    }
+
+    /**
+     * Enable root node.
+     *
+     * @return void
+     */
+    public function setRoot()
+    {
+        $this->root = true;
+    }
+
+    /**
+     * Determine whether it's root.
+     *
+     * @return boolean
+     */
+    public function isRoot()
+    {
+        return $this->root;
     }
 
     /**
