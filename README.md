@@ -121,8 +121,6 @@ If you want to provide your own breadcrumbs template, provide the name of your B
 ],
 ```
 
-This will look for `resources/views/breadcrumbs/my-template.blade.php`.
-
 ### Breadcrumb mutators
 
 If you want to define any breadcrumb mutator classes, you need to provide the namespace where the `Mutator` classes are located. By default this is set to `App\\Breadcrumbs\\Mutators\\`, but you can change it to suit your project requirements.
