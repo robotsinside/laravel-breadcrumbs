@@ -2,7 +2,7 @@
     <ul>
         @foreach($segments as $segment)
             <li class="{{ $loop->last ? 'is-active' : '' }}">
-                <a href="{{ $segment->url() }}" {{ $loop->count == $loop->iteration ? 'aria-current="page"' : '' }}>
+                <a href="{{ $segment->url() }}" {{ $loop->last ? 'aria-current="page"' : '' }}>
                     @if($segment->isRoot()) 
                         {!! $segment->label() !!}
                     @else
