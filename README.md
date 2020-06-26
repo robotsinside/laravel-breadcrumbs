@@ -45,6 +45,13 @@ Once installed you can start rendering breadcrumbs immediately.
 
 For example (using the Bootstrap 4 template) if you url is `http://example.test/about-us/team` the output will be:
 
+```sh
++-----------+-------------------------------+-----------------------+---------------------------------------------------------------+
+| Method    | URI                           | Name                  | Action                                                        |
++-----------+-------------------------------+-----------------------+---------------------------------------------------------------+
+| GET|HEAD  | about-us/team                 | about.team            | Closure                                                       |                                    
+```
+
 ```html
 <div class="container">
     <nav aria-label="You are here:" role="navigation">
@@ -63,6 +70,35 @@ For example (using the Bootstrap 4 template) if you url is `http://example.test/
 </div>
 ```
 
+The following example includes an injected model.
+
+```sh
++-----------+-------------------------------+-----------------------+---------------------------------------------------------------+
+| Method    | URI                           | Name                  | Action                                                        |
++-----------+-------------------------------+-----------------------+---------------------------------------------------------------+
+| GET|HEAD  | posts/{post}                  | posts.show            | App\App\Posts\Controllers\PostController@show                 |
+```
+
+By default the package will look for the `title` and `name` properties on the `Post` model. If this does not suit your use-case, you can define a BreadcrumbLabel class as shown below. This class will 
+
+```php
+<?php
+
+namespace App\Breadcrumbs\Labels;
+
+use RobotsInside\Breadcrumbs\Label;
+
+class PostBreadcrumbLabel extends Label
+{
+    public function label()
+    {
+        return $this->model->whatever;
+    }    
+}
+```
+
+Don't forget to register your label classes as explained in [Breadcrumb labels](#breadcrumbLabels).
+
 ## Configuration
 
 The config file should be pretty self explanatory.
@@ -79,7 +115,10 @@ You have the option of choosing a pre-defined template, or creating your own. Th
 If you want to provide your own breadcrumbs template, provide the name of your Blade template in the template option:
 
 ```php
-'template' => 'my-template'
+'template' => [
+    'style' => 'custom',
+    'path' => 'breadcrumbs.custom' // Will look in: 'views.breadcrumbs.custom'
+],
 ```
 
 This will look for `resources/views/breadcrumbs/my-template.blade.php`.
@@ -88,15 +127,17 @@ This will look for `resources/views/breadcrumbs/my-template.blade.php`.
 
 If you want to define any breadcrumb mutator classes, you need to provide the namespace where the `Mutator` classes are located. By default this is set to `App\\Breadcrumbs\\Mutators\\`, but you can change it to suit your project requirements.
 
-### Breadcrumb labels
+### <a name="breadcrumbLabels"></a> Breadcrumb labels
 
 By default, the package will look for `name` and `title` properties on injected route models. This is really just a convenience since many of my own models contain those properties. But you're not limited to these, you can easily provide custom logic to define your model labels.
 
 You will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes. See reasons why I chose this setup in "Package removal".
 
-## Breadcrumb mutators
-
-Breadcrumb mutators provide the ability to add and remove nodes in your breadcrumbs.
+```php
+'labels' => [
+    App\Post::class => App\Breadcrumbs\Labels\PostBreadcrumbLabel::class,
+],
+```
 
 ### Removing nodes
 
@@ -202,8 +243,7 @@ Instead, I opted for a config array mapping since that would be easier to remove
 ## Todo
 
 1. Write tests
-2. Provide more template customisations
-3. Finish README
+2. Finish README
 
 ## Changelog
 
