@@ -2,6 +2,7 @@
 
 namespace RobotsInside\Breadcrumbs;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
@@ -121,7 +122,7 @@ class Segment
         $uriSegment = $this->mergedSegments->get($this->segment);
 
         if(Str::containsAll($uriSegment, ['{', '}'])) {
-            // it's model
+            // it's a model
             $this->model = $this->request->route(str_replace(['{', '}'], '', $uriSegment));
         }        
     }
@@ -153,7 +154,7 @@ class Segment
      */
     public function model()
     {    
-        return $this->model;
+        return $this->model instanceof Model ? $this->model : null;
     }
 
     /**
