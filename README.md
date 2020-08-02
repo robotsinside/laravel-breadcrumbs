@@ -79,7 +79,7 @@ The following example includes an injected model.
 | GET|HEAD  | posts/{post}                  | posts.show            | App\App\Posts\Controllers\PostController@show                 |
 ```
 
-By default the package will look for the `title` and `name` properties on the `Post` model. If this does not suit your use-case, you can define a `BreadcrumbLabel` class as shown below. This class contains a `model` property which is resolved via the route model binding.
+You may define a `modelAttributes` key in the config file to automatically use a selection of model attributes in your labels (see [Breadcrumb labels](#breadcrumbLabels)). For more complex situations, you can define a `BreadcrumbLabel` class as shown below. This class contains a `model` property which is resolved via the route model binding.
 
 ```php
 <?php
@@ -127,9 +127,19 @@ If you want to define any breadcrumb mutator classes, you need to provide the na
 
 ### <a name="breadcrumbLabels"></a> Breadcrumb labels
 
-By default, the package will look for `name` and `title` properties on injected route models. This is really just a convenience since many of my own models contain those properties. But you're not limited to these, you can easily provide custom logic to define your model labels.
+In my own projects I often use `name` and `title` model attributes as my breadcrumb labels. Having to define custom breadcrumb labels in these trivial situations is cumbersome. Instead you can define a `modelAttributes` array in the config file to take care of that.
 
-You will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes in `config/breadcrumbs.php`. See reasons why I chose this setup in "Package removal".
+```php
+'modelAttributes' => [
+    'name', 
+    'title',
+    'whatever
+]
+```
+
+If your model matches multiple attributes in this array, the left-most database attribute will be used.
+
+To define some more complex logic for your breadcrumb labels you will need to provide a mapping for your `Model` => `BreadcrumbLabel` classes in `config/breadcrumbs.php`.
 
 ```php
 'labels' => [
