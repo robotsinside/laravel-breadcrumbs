@@ -43,7 +43,7 @@ Once installed you can start rendering breadcrumbs immediately.
 </div>
 ```
 
-For example (using the Bootstrap 4 template) if you url is `http://example.test/about-us/team` the output will be:
+For example (using the Bootstrap 4 template) if the URL is `http://example.test/about-us/team` the output will be:
 
 ```sh
 +-----------+-------------------------------+-----------------------+---------------------------------------------------------------+
@@ -79,7 +79,9 @@ The following example includes an injected model.
 | GET|HEAD  | posts/{post}                  | posts.show            | App\App\Posts\Controllers\PostController@show                 |
 ```
 
-You may define a `modelAttributes` key in the config file to automatically use a selection of model attributes in your labels (see [Breadcrumb labels](#breadcrumbLabels)). For more complex situations, you can define a `BreadcrumbLabel` class as shown below. This class contains a `model` property which is resolved via the route model binding.
+The `Post` model will be automatically injected into the breadcrumbs class and the label that is used will depend on whether you have a breadcrumb label class defined for that model and which `modelAttributes` you have listed in your config file.
+
+The `modelAttributes` key in the config file can be used to define a selection of model attributes for automatic resolution in your breadcrumbs (see [Breadcrumb labels](#breadcrumbLabels)). For more complex situations, you can define a `BreadcrumbLabel` class as shown below. This class contains a `model` property which is resolved via the route model binding.
 
 ```php
 <?php
@@ -133,7 +135,7 @@ In my own projects I often use `name` and `title` model attributes as my breadcr
 'modelAttributes' => [
     'name', 
     'title',
-    'whatever
+    'whatever'
 ]
 ```
 
