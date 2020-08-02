@@ -14,10 +14,7 @@ class BreadcrumbsServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'breadcrumbs');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'breadcrumbs');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -28,11 +25,6 @@ class BreadcrumbsServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/breadcrumbs'),
             ], 'views');
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/breadcrumbs'),
-            ], 'assets');*/
         }
     }
 

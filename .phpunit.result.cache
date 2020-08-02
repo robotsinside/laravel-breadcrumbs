@@ -1,1 +1,1 @@
-C:37:"PHPUnit\Runner\DefaultTestResultCache":116:{a:2:{s:7:"defects";a:0:{}s:5:"times";a:1:{s:56:"RobotsInside\Breadcrumbs\Tests\ExampleTest::true_is_true";d:0.056;}}}
+C:37:"PHPUnit\Runner\DefaultTestResultCache":268:{a:2:{s:7:"defects";a:1:{s:62:"RobotsInside\Breadcrumbs\Tests\SimpleTest::a_simple_test_works";i:4;}s:5:"times";a:2:{s:56:"RobotsInside\Breadcrumbs\Tests\ExampleTest::true_is_true";d:0.056;s:62:"RobotsInside\Breadcrumbs\Tests\SimpleTest::a_simple_test_works";d:0.065;}}}
