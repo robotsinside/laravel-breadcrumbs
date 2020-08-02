@@ -2,6 +2,7 @@
 
 namespace RobotsInside\Breadcrumbs;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
@@ -121,10 +122,10 @@ class Segment
     {
         $uriSegment = $this->mergedSegments->get($this->segment);
 
-        if(Str::containsAll($uriSegment, ['{', '}'])) {
+        if (Str::containsAll($uriSegment, ['{', '}'])) {
             // it's a model
             $this->model = $this->request->route(str_replace(['{', '}'], '', $uriSegment));
-        }        
+        }
     }
 
     /**
@@ -153,7 +154,7 @@ class Segment
      * @return Model|null
      */
     public function model()
-    {    
+    {
         return $this->model instanceof Model ? $this->model : null;
     }
 
@@ -174,11 +175,47 @@ class Segment
      */
     public function label()
     {
-        if($this->labelClassExists()) {
+        if (!$this->model()) {
+            return $this->segmentTitleCase();
+        }
+
+        if ($this->labelClassExists()) {
             return $this->labelInstance()->label();
         }
 
-        return $this->model() ? $this->model()->title ?? $this->model()->name : $this->segmentTitleCase();
+        return $this->resolveLabel();
+    }
+
+    /**
+     * Look for the auto attribute settings.
+     *
+     * @return string
+     */
+    private function resolveLabel()
+    {
+        if (!Config::has('breadcrumbs.modelAttributes')) {
+            return $this->segmentTitleCase();
+        }
+
+        return $this->model()->{$this->getFirstMatchedAttribute()};
+    }
+
+    /**
+     * Search the list of attributes
+     *
+     * @return string
+     */
+    private function getFirstMatchedAttribute()
+    {
+        $attribute = collect(array_keys($this->model()->getAttributes()))
+            ->intersect(collect(config('breadcrumbs.modelAttributes')))
+            ->first();
+
+        if(! $attribute) {
+            throw new Exception('Missing model attribute. Please define a RobotsInside\Breadcrumbs\Label or update the breacrumbs modelAttributes config.');
+        }
+
+        return $attribute;
     }
 
     /**
@@ -188,7 +225,7 @@ class Segment
      */
     private function labelClassExists()
     {
-        return $this->model() && Config::has('breadcrumbs.labels.'.get_class($this->model()));
+        return $this->model() && Config::has('breadcrumbs.labels.' . get_class($this->model()));
     }
 
     /**
@@ -198,7 +235,7 @@ class Segment
      */
     private function labelInstance()
     {
-        $class = Config::get('breadcrumbs.labels.'.get_class($this->model()));
+        $class = Config::get('breadcrumbs.labels.' . get_class($this->model()));
 
         $instance = new $class;
 

@@ -43,4 +43,14 @@ return [
     'labels' => [
         // App\Post::class => App\Breadcrumbs\Labels\PostBreadcrumbLabel::class,
     ],
+
+    /**
+     * Here you may choose the default model attributes which should be used as labels in your 
+     * breadcrumbs, saving you some time from defininig repetitive label classes. If your
+     * model matches multiple attributes you'll need to define a custom label class.
+     */
+    'modelAttributes' => [
+        'name', 
+        'title'
+    ]
 ];
