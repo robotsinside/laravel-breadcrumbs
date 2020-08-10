@@ -1,7 +1,7 @@
 # Laravel Breadcrumbs
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/robotsinside/laravel-breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/laravel-breadcrumbs)
-[![Total Downloads](https://img.shields.io/packagist/dt/robotsinside/breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/laravel-breadcrumbs)
+[![Total Downloads](https://img.shields.io/packagist/dt/robotsinside/laravel-breadcrumbs.svg?style=flat-square)](https://packagist.org/packages/robotsinside/laravel-breadcrumbs)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A simple breadcrumbs implementation for Laravel 7+ with flexible class based segment customisation.
