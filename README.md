@@ -8,6 +8,25 @@
 
 A simple breadcrumbs implementation for Laravel 7+ with flexible class based segment customisation.
 
+## Table of contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  * [Templates](#templates)
+  * [Breadcrumb mutators](#breadcrumb-mutators)
+  * [Breadcrumb labels](#-a-name--breadcrumblabels----a--breadcrumb-labels)
+  * [Removing nodes](#removing-nodes)
+  * [Adding nodes](#adding-nodes)
+- [Package removal](#package-removal)
+- [Todo](#todo)
+- [Changelog](#changelog)
+- [Contributing](#contributing)
+- [Security](#security)
+- [Credits](#credits)
+- [Coffee Time](#coffee-time)
+- [License](#license)
+
 ## Installation
 
 1. Run `composer require robotsinside/laravel-breadcrumbs`.
