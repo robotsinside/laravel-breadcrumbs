@@ -29,6 +29,13 @@ A simple breadcrumbs implementation for Laravel 7+ with flexible class based seg
 
 ## Installation
 
+Depending on which version of Laravel you're on, you may need to specify which version to install.
+
+| Laravel Version | Package Version |
+|:---------------:|:---------------:|
+|       8.0       |      ^1.0       |
+|       7.0       |      ^0.1       |
+
 1. Run `composer require robotsinside/laravel-breadcrumbs`.
 
 2. Optionally register the service provider in `config/app.php`
