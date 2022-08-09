@@ -5,7 +5,7 @@
 ![CI](https://github.com/robotsinside/laravel-breadcrumbs/actions/workflows/laravel.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-A simple breadcrumbs implementation for Laravel 7+ with flexible class based segment customisation.
+A simple breadcrumbs implementation for Laravel with flexible class based segment customisation.
 
 ## Table of contents
 
@@ -32,8 +32,8 @@ Depending on which version of Laravel you're on, you may need to specify which v
 
 | Laravel Version | Package Version |
 |:---------------:|:---------------:|
+|       9.0       |      ^1.2       |
 |       8.0       |      ^1.0       |
-|       7.0       |      ^0.1       |
 
 1. Run `composer require robotsinside/laravel-breadcrumbs`.
 
