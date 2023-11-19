@@ -66,7 +66,7 @@ class Breadcrumbs
         if($this->mutator) {
             return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
         }
-        
+
         $this->setSegments();
 
         return view($this->viewPath())->with(['segments' => $this->segments->toArray()]);
