@@ -2,6 +2,7 @@
 
 namespace RobotsInside\Breadcrumbs\Tests;
 
+use App\Post;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -64,6 +65,19 @@ class TestCase extends BaseTest
             $table->string('name');
             $table->timestamps();
         });
+    }
+
+    protected function createPost($slug, $title)
+    {
+        return Post::create([
+            'slug' => $slug,
+            'title' => $title,
+        ]);
+    }
+
+    public function testExample(): void
+    {
+        $this->assertTrue(true);
     }
 }
 
